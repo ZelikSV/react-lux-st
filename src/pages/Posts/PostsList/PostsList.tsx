@@ -3,6 +3,7 @@ import { gql, useQuery } from '@apollo/client';
 
 import { Loading } from 'components';
 import useRouting from 'hooks/useRouting';
+import { Routing } from 'router';
 
 import { Post } from './PostsList.types';
 import { PostsWrapper, PostsTitle, PostsContainer, PostItem, CreateButton } from './PostsList.styles';
@@ -43,12 +44,12 @@ const PostsList: FC = () => {
     <PostsWrapper>
       <PostsTitle>
         <h2>Posts Page</h2>
-        <CreateButton to="/posts/new-post">Create new post</CreateButton>
+        <CreateButton to={Routing.NewPost}>Create new post</CreateButton>
       </PostsTitle>
 
       <PostsContainer>
         {data?.posts.data.map((el: Post) => (
-          <PostItem key={el.id} to={formatRoute('post/:id', { id: el.id })}>
+          <PostItem key={el.id} to={formatRoute(Routing.UpdatePost, { id: el.id })}>
             <h3>{el.title}</h3>
             <p>{el.body}</p>
           </PostItem>

@@ -1,11 +1,11 @@
 export enum Routing {
   Posts = '/posts',
   NewPost = '/posts/new-post',
-  UpdatePost = '/post/:id',
+  UpdatePost = '/posts/:id',
 
   Gallery = '/gallery',
 
   Users = '/users',
   NewUser = '/users/new-user',
-  UpdateUser = '/user/:id',
+  UpdateUser = '/users/:id',
 }

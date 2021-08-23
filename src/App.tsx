@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 
 import { Header, Sidebar } from 'components';
 import { Posts, Gallery, Users } from 'pages';
+import { Routing } from 'router';
 
 import './App.scss';
 
@@ -18,9 +19,9 @@ const App: FC = () => {
         <Layout>
           <Content className="content">
             <Switch>
-              <Route path="/gallery" component={Gallery} />
-              <Route path="/users" component={Users} />
-              <Route path="/" component={Posts} />
+              <Route path={Routing.Gallery} component={Gallery} />
+              <Route path={Routing.Users} component={Users} />
+              <Route path={Routing.Posts} component={Posts} />
             </Switch>
           </Content>
         </Layout>
