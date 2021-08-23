@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import { Header, Sidebar } from 'components';
-import { Posts, Todos } from 'pages';
+import { Posts, Gallery, Users } from 'pages';
 
 import './App.scss';
 
@@ -18,7 +18,8 @@ const App: FC = () => {
         <Layout>
           <Content className="content">
             <Switch>
-              <Route path="/todos" component={Todos} />
+              <Route path="/gallery" component={Gallery} />
+              <Route path="/users" component={Users} />
               <Route path="/" component={Posts} />
             </Switch>
           </Content>

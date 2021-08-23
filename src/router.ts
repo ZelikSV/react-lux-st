@@ -1,14 +1,11 @@
-import { Posts, Todos } from 'pages';
+export enum Routing {
+  Posts = '/posts',
+  NewPost = '/posts/new-post',
+  UpdatePost = '/post/:id',
 
-export default [
-  {
-    title: 'Todos',
-    path: '/todos',
-    component: Todos,
-  },
-  {
-    title: 'Posts',
-    path: '/',
-    component: Posts,
-  },
-];
+  Gallery = '/gallery',
+
+  Users = '/users',
+  NewUser = '/users/new-user',
+  UpdateUser = '/user/:id',
+}

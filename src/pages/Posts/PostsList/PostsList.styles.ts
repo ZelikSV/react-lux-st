@@ -21,6 +21,7 @@ export const PostsContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   margin-top: 20px;
+  padding: 10px 15px;
   width: 100%;
   height: calc(100vh - 175px);
   overflow-y: auto;

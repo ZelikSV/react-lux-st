@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { useRouteMatch } from 'react-router-dom';
 
 import { Loading } from 'components';
+import useRouting from 'hooks/useRouting';
 
 import { Post } from './PostsList.types';
 import { PostsWrapper, PostsTitle, PostsContainer, PostItem, CreateButton } from './PostsList.styles';
@@ -23,13 +23,13 @@ const GET_POSTS = gql`
 `;
 
 const PostsList: FC = () => {
-  const { url } = useRouteMatch();
+  const { formatRoute } = useRouting();
   const { loading, data } = useQuery<{ posts: { data: Post[] } }>(GET_POSTS, {
     variables: {
       options: {
         paginate: {
           page: 1,
-          limit: 25,
+          limit: 100,
         },
       },
     },
@@ -43,12 +43,12 @@ const PostsList: FC = () => {
     <PostsWrapper>
       <PostsTitle>
         <h2>Posts Page</h2>
-        <CreateButton to={`${url}new-post`}>Create new post</CreateButton>
+        <CreateButton to="/posts/new-post">Create new post</CreateButton>
       </PostsTitle>
 
       <PostsContainer>
         {data?.posts.data.map((el: Post) => (
-          <PostItem key={el.id} to={url + el.id}>
+          <PostItem key={el.id} to={formatRoute('post/:id', { id: el.id })}>
             <h3>{el.title}</h3>
             <p>{el.body}</p>
           </PostItem>

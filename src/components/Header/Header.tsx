@@ -1,14 +1,26 @@
 import { Link } from 'react-router-dom';
 import { Layout } from 'antd';
 
+import { Routing } from 'router';
+
 import './styles.scss';
 
 const { Header: ANDHeader } = Layout;
 
 const Header = () => {
   const headerConfig = [
-    { title: 'Home', path: '/' },
-    { title: 'Todos', path: '/todos' },
+    {
+      title: 'Gallery',
+      path: Routing.Gallery,
+    },
+    {
+      title: 'Users',
+      path: Routing.Users,
+    },
+    {
+      title: 'Posts',
+      path: Routing.Posts,
+    },
   ];
 
   return (
