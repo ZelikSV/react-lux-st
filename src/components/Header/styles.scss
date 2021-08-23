@@ -1,0 +1,14 @@
+ .header-menu {
+    display: flex;
+    margin: 0;
+    width: 30%;
+
+    li {
+      flex-grow: 1;
+      list-style: none;
+
+      a {
+        color: #fff;
+      }
+    }
+  }
