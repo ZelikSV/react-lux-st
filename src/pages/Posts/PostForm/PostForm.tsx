@@ -15,7 +15,7 @@ type Props = {
 };
 
 const PostForm: FC<Props> = ({ initialValues, onSubmit, title, mode }) => {
-  const { handleSubmit, control, watch } = useForm({
+  const { handleSubmit, control, watch, errors } = useForm({
     defaultValues: initialValues,
   });
   const history = useHistory();
@@ -38,9 +38,23 @@ const PostForm: FC<Props> = ({ initialValues, onSubmit, title, mode }) => {
         <Controller
           name="title"
           control={control}
-          render={(field) => <TextField disabled={mode === 'update'} label="Title" info={field} />}
+          render={({ onChange, value, name }) => (
+            <TextField
+              info={{ name, errors }}
+              value={value}
+              onChange={onChange}
+              disabled={mode === 'update'}
+              label="Title"
+            />
+          )}
         />
-        <Controller name="body" control={control} render={(field) => <TextField label="Body" info={field} />} />
+        <Controller
+          name="body"
+          control={control}
+          render={({ onChange, value, name }) => (
+            <TextField label="Body" value={value} onChange={onChange} info={{ name, errors }} />
+          )}
+        />
         <SubmitButton type="primary" htmlType="submit" disabled={!watch('title') || !watch('body')}>
           Save
         </SubmitButton>
