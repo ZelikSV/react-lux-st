@@ -2,18 +2,19 @@ import { Input } from 'antd';
 import React from 'react';
 import { InputProps } from 'antd/lib/input';
 
+import InputWrapper, { Margin, Info } from '../InputWrapper/InputWrapper';
+
 export interface Props extends Omit<InputProps, 'allowClear'> {
   label?: string;
-  disabled?: boolean;
-  info: any;
+  margin?: Margin;
+  info?: Info;
 }
 
-const TextField = ({ disabled, label, info, ...props }: Props) => {
+const TextField = ({ info, label, className, margin, ...props }: Props) => {
   return (
-    <div>
-      <p>{label}</p>
-      <Input allowClear {...props} value={info?.value} disabled={disabled} onChange={info?.onChange} />
-    </div>
+    <InputWrapper info={info} label={label} className={className} margin={margin}>
+      <Input allowClear {...props} />
+    </InputWrapper>
   );
 };
 
