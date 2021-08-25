@@ -4,8 +4,9 @@ import { gql, useQuery } from '@apollo/client';
 import { Loading } from 'components';
 
 import { User } from './UsersList.types';
-import { UsersListContainer } from './UsersList.styles';
+import { UsersListContainer, UsersListTitle, UsersListWrapper, CreateButton } from './UsersList.styles';
 import UserItem from './UserItem/UserItem';
+import { Routing } from '../../../router';
 
 const GET_USERS = gql`
   query ($options: PageQueryOptions) {
@@ -37,11 +38,18 @@ const UsersList = () => {
   }
 
   return (
-    <UsersListContainer>
-      {data?.users.data.map((user) => {
-        return <UserItem key={user.id} user={user} />;
-      })}
-    </UsersListContainer>
+    <UsersListWrapper>
+      <UsersListTitle>
+        <h2>Users Page</h2>
+        <CreateButton to={Routing.NewUser}>Create new user</CreateButton>
+      </UsersListTitle>
+
+      <UsersListContainer>
+        {data?.users.data.map((user) => {
+          return <UserItem key={user.id} user={user} />;
+        })}
+      </UsersListContainer>
+    </UsersListWrapper>
   );
 };
 

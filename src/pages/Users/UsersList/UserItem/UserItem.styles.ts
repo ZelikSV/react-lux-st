@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const UserItemContainer = styled.div`
-  width: 500px;
+  width: 45%;
   display: flex;
   justify-content: space-between;
   align-items: center;
