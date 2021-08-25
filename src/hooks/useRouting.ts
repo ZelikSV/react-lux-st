@@ -6,7 +6,7 @@ import { setParams } from 'utils/params';
 const useRouting = () => {
   const history = useHistory();
   const location = useLocation();
-  const match = useRouteMatch();
+  const match = useRouteMatch<{ [key: string]: any }>();
 
   const getParams = (params?: string[]) => {
     const searchParams = new URLSearchParams(location.search);
