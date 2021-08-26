@@ -4,8 +4,8 @@ import { gql, useQuery } from '@apollo/client';
 import { Loading } from 'components';
 import useRouting from 'hooks/useRouting';
 import { Routing } from 'router';
+import { Post } from 'types';
 
-import { Post } from './PostsList.types';
 import { PostsWrapper, PostsTitle, PostsContainer, PostItem, CreateButton } from './PostsList.styles';
 
 const GET_POSTS = gql`

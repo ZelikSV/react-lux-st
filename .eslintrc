@@ -150,7 +150,7 @@
     "@typescript-eslint/no-unnecessary-type-arguments": "warn", // Warns if an explicitly specified type argument is the default for that type parameter
     "@typescript-eslint/prefer-function-type": "warn", // Use function types instead of interfaces with call signatures
     "@typescript-eslint/prefer-readonly": "warn", // Requires that private members are marked as readonly if they're never modified outside of the constructor
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_$" }],
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/member-ordering": "error", // off // Require a consistent member declaration order
     "@typescript-eslint/explicit-module-boundary-types": "off", // error
     "@typescript-eslint/ban-types": "off", // error

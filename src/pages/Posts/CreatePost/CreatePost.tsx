@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
+import { Post } from 'types';
+
 import PostForm from '../PostForm/PostForm';
-import { Post } from '../PostsList/PostsList.types';
 
 const CREATE_POST_ITEM = gql`
   mutation ($input: CreatePostInput!) {

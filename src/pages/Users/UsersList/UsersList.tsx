@@ -2,11 +2,11 @@ import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 
 import { Loading } from 'components';
+import { Routing } from 'router';
+import { User } from 'types';
 
-import { User } from './UsersList.types';
 import { UsersListContainer, UsersListTitle, UsersListWrapper, CreateButton } from './UsersList.styles';
 import UserItem from './UserItem/UserItem';
-import { Routing } from '../../../router';
 
 const GET_USERS = gql`
   query ($options: PageQueryOptions) {

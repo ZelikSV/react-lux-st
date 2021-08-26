@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
+import { User } from 'types';
+
 import UserForm from '../UserForm/UserForm';
-import { User } from '../UsersList/UsersList.types';
 
 const CREATE_USER = gql`
   mutation ($input: CreateUserInput!) {
