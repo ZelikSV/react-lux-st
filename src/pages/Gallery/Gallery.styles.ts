@@ -12,7 +12,7 @@ export const GalleryWrapper = styled.div`
   width: 100%;
   height: calc(100vh - 65px);
 
-  .spinner {
+  & > .spinner {
     width: 100%;
     max-height: 100px;
   }

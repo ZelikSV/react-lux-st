@@ -1,10 +1,13 @@
-import React, { FC, useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
+import { AutoSizer, Grid } from 'react-virtualized';
+import { Size } from 'react-virtualized/dist/es/AutoSizer';
+import { GridCellProps } from 'react-virtualized/dist/es/Grid';
 
 import { Photo } from 'types';
 import { Loading } from 'components';
 
-import { GalleryContainer, GalleryWrapper } from './Gallery.styles';
+import { GalleryWrapper } from './Gallery.styles';
 import GalleryImage from './GalleryImage/GalleryImage';
 
 const GET_PHOTOS_PAGE = gql`
@@ -20,77 +23,74 @@ const GET_PHOTOS_PAGE = gql`
   }
 `;
 
-const START_IMAGES_COUNT = 150;
-const ADDING_IMAGES_COUNT = 50;
-const LOADING_BOTTOM_SPACE = 250;
-const IMAGES_LIMIT = 5000;
+const START_IMAGES_COUNT = 5000;
+const IMAGE_SIZE = {
+  width: 200,
+  height: 200,
+};
 
 const Gallery: FC = () => {
   const galleryWrapper = useRef<HTMLDivElement>(null);
-  const [pageData, setPageData] = useState({
-    start: 0,
-    end: START_IMAGES_COUNT,
-    limit: IMAGES_LIMIT,
+  const [windowSize, setWindowSize] = useState({
+    width: 1920,
+    height: 900,
   });
-  const [images, setImages] = useState<Array<Photo>>([]);
-  const { loading, data, fetchMore } = useQuery<{ photos: { data: Array<Photo> } }>(GET_PHOTOS_PAGE, {
+
+  const { loading, data } = useQuery<{ photos: { data: Array<Photo> } }>(GET_PHOTOS_PAGE, {
     variables: {
       options: {
-        slice: pageData,
+        slice: {
+          start: 0,
+          end: START_IMAGES_COUNT,
+        },
       },
     },
   });
 
   useEffect(() => {
-    if (pageData.start === 0) {
-      setImages(data?.photos.data ?? []);
-    }
-  }, [data?.photos.data]);
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }, [window.innerWidth, window.innerHeight]);
 
-  const handleMoreImages = () => {
-    try {
-      const newPagination = { ...pageData, start: pageData.end, end: pageData.end + ADDING_IMAGES_COUNT };
+  const columnCount = useMemo(() => Math.floor(windowSize.width / 200), [windowSize]);
+  const rowsCount = useMemo(() => Math.floor(data?.photos.data.length ?? 0 / columnCount), [data?.photos.data.length]);
 
-      fetchMore({
-        variables: {
-          options: {
-            slice: newPagination,
-          },
-        },
-      }).then(({ data }) => {
-        setImages(images.concat(data.photos.data));
-        setPageData(newPagination);
-      });
-    } catch (err) {
-      console.log(err);
+  const cellRenderer = ({ columnIndex, rowIndex, style }: GridCellProps) => {
+    const inx = rowIndex * columnCount + columnIndex;
+    const photo: Photo | undefined = data?.photos.data[inx];
+
+    if (!photo) {
+      return null;
     }
+
+    return <GalleryImage key={photo.id} style={style} photo={photo} />;
   };
 
-  const imagesList = useMemo(
+  const GridWrapper = useMemo(
     () => (
-      <GalleryContainer>
-        {images.map((photo) => (
-          <GalleryImage key={photo.id} photo={photo} />
-        ))}
-      </GalleryContainer>
+      <AutoSizer>
+        {({ height, width }: Size) => (
+          <Grid
+            height={height}
+            autoContainerWidth
+            columnCount={columnCount}
+            rowCount={rowsCount}
+            rowHeight={IMAGE_SIZE.height}
+            cellRenderer={cellRenderer}
+            columnWidth={IMAGE_SIZE.width}
+            width={width}
+          />
+        )}
+      </AutoSizer>
     ),
-    [images],
+    [data?.photos.data],
   );
 
-  const handleScroll = useCallback(() => {
-    if (galleryWrapper.current) {
-      if (
-        galleryWrapper.current.scrollTop + galleryWrapper.current.clientHeight >=
-        galleryWrapper.current.scrollHeight - LOADING_BOTTOM_SPACE
-      ) {
-        handleMoreImages();
-      }
-    }
-  }, [galleryWrapper.current?.scrollTop, galleryWrapper.current?.clientHeight, galleryWrapper.current?.scrollHeight]);
-
   return (
-    <GalleryWrapper ref={galleryWrapper} onScroll={handleScroll}>
-      {imagesList}
+    <GalleryWrapper ref={galleryWrapper}>
+      {GridWrapper}
       {loading && <Loading />}
     </GalleryWrapper>
   );

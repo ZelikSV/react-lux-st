@@ -7,16 +7,23 @@ import { ImageWrapper } from './GalleryImage.styles';
 
 type Props = {
   photo: Photo;
+  style: { [key: string]: any };
 };
 
 const GalleryImage: FC<Props> = memo(
-  ({ photo }) => {
+  ({ photo, style }) => {
     const [loading, setLoading] = useState(true);
 
     return (
-      <ImageWrapper>
+      <ImageWrapper style={style}>
         {loading && <Loading />}
-        <img src={photo.url} alt={photo.title} onLoad={() => setLoading(false)} />
+        <img
+          src={photo.url}
+          alt={photo.title}
+          onLoad={() => {
+            setLoading(false);
+          }}
+        />
       </ImageWrapper>
     );
   },
