@@ -3,9 +3,9 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 
 import useRouting from 'hooks/useRouting';
 import { Loading } from 'components';
+import { User } from 'types';
 
 import UserForm from '../UserForm/UserForm';
-import { User } from '../UsersList/UsersList.types';
 
 const UPDATE_USER = gql`
   mutation ($id: ID!, $input: UpdateUserInput!) {

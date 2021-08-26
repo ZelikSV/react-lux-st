@@ -3,8 +3,8 @@ import faker from 'faker';
 
 import useRouting from 'hooks/useRouting';
 import { Routing } from 'router';
+import { User } from 'types';
 
-import { User } from '../UsersList.types';
 import { UserItemContainer, UserAvatar, UserInfo } from './UserItem.styles';
 
 type Props = {

@@ -3,8 +3,8 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import { Loading } from 'components';
+import { Post } from 'types';
 
-import { Post } from '../PostsList/PostsList.types';
 import PostForm from '../PostForm/PostForm';
 
 const PostUpdate: FC = () => {
