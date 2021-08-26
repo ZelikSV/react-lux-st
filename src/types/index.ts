@@ -21,3 +21,8 @@ export type Post = {
   body: string;
   user?: User;
 };
+
+export type AutoSizerProps = {
+  width: number;
+  height: number;
+}
