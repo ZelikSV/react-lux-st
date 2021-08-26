@@ -24,6 +24,7 @@ const GET_PHOTOS_PAGE = gql`
 `;
 
 const START_IMAGES_COUNT = 5000;
+const SIDEBAR_WIDTH = 200;
 const IMAGE_SIZE = {
   width: 200,
   height: 200,
@@ -49,7 +50,7 @@ const Gallery: FC = () => {
 
   useEffect(() => {
     setWindowSize({
-      width: window.innerWidth,
+      width: window.innerWidth - SIDEBAR_WIDTH,
       height: window.innerHeight,
     });
   }, [window.innerWidth, window.innerHeight]);
