@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { omit } from 'lodash';
 
 import { User } from 'types';
 
@@ -19,20 +20,19 @@ const CREATE_USER = gql`
 
 const CreateUser = () => {
   const [createUserQuery] = useMutation(CREATE_USER);
-  const [data, setData] = useState({
-    user: {
-      id: '',
-      name: '',
-      username: '',
-      phone: '',
-      email: '',
-    },
+  const [data, setData] = useState<User>({
+    id: '',
+    name: '',
+    username: '',
+    phone: '',
+    email: '',
+    website: '',
   });
   const createUser = async (user: User) => {
-    setData({ user });
+    setData(user);
     await createUserQuery({
       variables: {
-        input: user,
+        input: omit(user, ['id']),
       },
     });
   };

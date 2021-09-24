@@ -3,11 +3,12 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { ActionButtons, TextField } from 'components/FormElements';
 import useRouting from 'hooks/useRouting';
+import { User } from 'types';
 
 import { UserFormWrapper, FormTitle } from './UserForm.styles';
 
 type Props = {
-  initialValues: { [key: string]: any };
+  initialValues: User;
   onSubmit: Function;
   title: string;
   mode: 'create' | 'update';

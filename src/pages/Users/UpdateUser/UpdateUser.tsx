@@ -58,7 +58,7 @@ const UpdateUser = () => {
 
   return (
     <div>
-      <UserForm onSubmit={updateUser} title="Update User" initialValues={data?.user ?? {}} mode="update" />
+      <UserForm onSubmit={updateUser} title="Update User" initialValues={data?.user ?? ({} as User)} mode="update" />
     </div>
   );
 };
