@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import { ThemeProvider } from 'styled-components';
 
@@ -25,6 +25,7 @@ const App: FC = () => {
                 <Route path={Routing.Gallery} component={Gallery} />
                 <Route path={Routing.Users} component={Users} />
                 <Route path={Routing.Posts} component={Posts} />
+                <Redirect from="/" to={Routing.Gallery} />
               </Switch>
             </Content>
           </Layout>

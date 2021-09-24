@@ -1,19 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { theme } from 'theme';
+
 type AnyObject = { [key: string]: any };
 
-const Container = styled.div<{ error?: boolean; margin?: Margin }>`
+const Container = styled.div<{ error?: boolean; margin?: Margin; theme: AnyObject }>`
   position: relative;
   margin: ${(props) => (props.margin === 'none' ? 0 : '8px 0 16px')};
 
   & .ant-input-affix-wrapper,
   .ant-picker {
-    border-color: ${(props) => (props.error ? `${props.theme.color.error}` : `${props.theme.color.border}`)};
+    border-color: ${(props) => (props.error ? `${theme.color.error}` : `${theme.color.border}`)};
   }
 
   .ant-input {
-    border-color: ${(props) => (props.error ? `${props.theme.color.error}` : `${props.theme.color.border}`)};
+    border-color: ${(props) => (props.error ? `${theme.color.error}` : `${theme.color.border}`)};
   }
 
   & .ant-input-affix-wrapper-focused,
@@ -23,7 +25,7 @@ const Container = styled.div<{ error?: boolean; margin?: Margin }>`
 
   &&& .ant-select {
     .ant-select-selector {
-      border-color: ${(props) => (props.error ? `${props.theme.color.error}` : `${props.theme.color.border}`)};
+      border-color: ${(props) => (props.error ? `${theme.color.error}` : `${theme.color.border}`)};
     }
   }
 
@@ -34,10 +36,10 @@ const Container = styled.div<{ error?: boolean; margin?: Margin }>`
   }
 
   .ant-upload.ant-upload-drag {
-    border-color: ${(props) => (props.error ? `${props.theme.color.error}` : `${props.theme.color.border}`)};
+    border-color: ${(props) => (props.error ? `${theme.color.error}` : `${theme.color.border}`)};
 
     :hover {
-      border-color: ${(props) => (props.error ? `${props.theme.color.error}` : `${props.theme.color.border}`)};
+      border-color: ${(props) => (props.error ? `${theme.color.error}` : `${theme.color.border}`)};
     }
   }
 `;
@@ -47,7 +49,7 @@ const StyledLabel = styled.span`
 `;
 
 const StyledError = styled.span`
-  color: ${(props) => props.theme.color.error};
+  color: ${theme.color.error};
   position: absolute;
   bottom: -18px;
   left: 12px;
@@ -74,7 +76,9 @@ const InputWrapper = ({ children, label, className, margin = 'normal', info }: P
       {children}
 
       {info?.errors[info.name] && (
-        <StyledError className="errorFormItem_message">{info.errors[info.name].message}</StyledError>
+        <StyledError className="errorFormItem_message">
+          {(info.errors[info.name] as { message: string }).message}
+        </StyledError>
       )}
     </Container>
   );
